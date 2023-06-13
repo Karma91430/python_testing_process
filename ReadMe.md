@@ -35,21 +35,24 @@ On peut alors imaginer plusieurs tests pour identifier toutes les sorties ci-des
 - Vérifier que les fichiers JSON générés possèdent bien 5 clés &rarr; **test_RightNumberOfKeys.py**
 - Vérifier que les fichiers JSON générés possèdent les bons noms de clés &rarr; **test_RightKeyNames.py**
 - Vérifier que les données dans les fichiers JSON générés correspondent bien aux différents types attendus &rarr; **test_RightKeyTypes**
+- Vérifier à partir d'un timestamp donné que le fichier JSON généré correspond bien à ce qui se trouve dans la BDD.
+- Vérifier que l'ID du contact existe bien dans la BDD d'origine. 
+- Vérifier la cohérence des messages en fonction de l'état direction
 
-En complément de ces tests, on peut imaginer des scénarios plus complet en fonction du système :
-
+On part du principe que les tests de validation de données précises peuvent s'appuyer sur un modèle textuel de la BDD (comme dans les tests .py) ou alors directement via des _query_ vers la BDD. Cette deuxième solution est plus pertinente dans la mesure où cela permet de développer un test générique. Ce test pourra alors s'adapter automatiquement en fonction, du nombre de paramètre, de la leur nom, de leur type, etc.
 
 ## Implémentation
-**test_NoFileGenerated.py** :
+
+### test_NoFileGenerated.py
+La méthode est très simple, on utilise la commande _os.listdir_ pour scanner la répertoire choisi et ensuite récuper les noms des fichiers présent dans celui-ci. La commande __assert_ nous permet ensuite de vérifier que la liste générée n'est pas nulle. Cela valide notre vérification de fichiers json.
+
+### test_RightNumberOfKeys.py
 
 
-**test_RightNumberOfKeys.py** :
+### test_RightKeyNames.py
 
 
-**test_RightKeyNames.py** :
-
-
-**test_RightKeyTypes** :
+### test_RightKeyTypes
 
 
 ## Utilisation
