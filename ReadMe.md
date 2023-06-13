@@ -29,33 +29,39 @@ Dans un premier temps, je souhaite définir chacune des sorties possibles du sys
     - les fichiers ne possèdent pas le/les bon(s) type(s) de valeur(s) associé(s) à chaque clé &rarr; **failure**
     - les fichiers en sortie sont conformes à ce qui est attendu &rarr; **success**
 
+## Tests envisagés
 On peut alors imaginer plusieurs tests pour identifier toutes les sorties ci-dessus :
 - Vérifier que des fichiers ont bien été généré dans le répertoire de sortie prévu _Outputs_ &rarr; **test_NoFileGenerated.py**
 - Vérifier que les fichiers JSON générés possèdent bien 5 clés &rarr; **test_RightNumberOfKeys.py**
-- Vérifier que les fichiers JSON générés possèdent bien 
+- Vérifier que les fichiers JSON générés possèdent les bons noms de clés &rarr; **test_RightKeyNames.py**
+- Vérifier que les données dans les fichiers JSON générés correspondent bien aux différents types attendus &rarr; **test_RightKeyTypes**
 
-Based on the given context, we need to verify the structure of the output of the middleware. To do that, we need to define what are all the possible outputs of the programs. This should include the right outputs and the corrupt one.
+En complément de ces tests, on peut imaginer des scénarios plus complet en fonction du système :
 
-Here is the list of all the possible outputs :
-- Correct Json 
-    - Right number of keys
-    - Right names
-    - Right type of values
-    - Correct file
-- Corrupt output --> no-json file
-- Corrupt output:
-    - Wrong numbher of keys
-    - Wrong type(s) of parameters
-    - Wrong value associated with a parameter
 
 ## Implémentation
-I decided to use the Nose framework to implement my tests. Nose is a really efficient tool to implement tests in python and to automate them. Futhermore, the log of each test is well made with Nose, so that it is easy to debub afterwards. Moreover, I already work with NoseTest, so it was a obvious choice for me.
+**test_NoFileGenerated.py** :
 
-## Commands
-Each test is written in an individual file so that it is possible to play only one test. It is also possible to play all the tests in one proces with the testing command _pytest_
 
-To call a test you can directly use the command:
-pytest <file_name>.py_
+**test_RightNumberOfKeys.py** :
 
-To call all test in one process you can directly use the command:
-_pytest_
+
+**test_RightKeyNames.py** :
+
+
+**test_RightKeyTypes** :
+
+
+## Utilisation
+Chaque test est écrit dans un fichier unique. Cela permet de rejouer chaque test de manière unitaire sans lancer le protocole de test complet. 
+Pour lancer chaque test individuellement, on va utiliser la commande suivante :
+- _pytest </fileName/>_ 
+
+Dans le cas où l'on souhaite lancer l'intégralité du protocole de test, on pourra simplement lancer la commande suivante, sans paramètre:
+- _pytest_
+
+## Analyse 
+La librairie **pytest** offre un détail complet des erreurs lors des tests. Cela permet d'identifier rapidement ce qui a posé problème lors de série de tests complet. On peut également définir plusieurs critères autres que simplement succès ou échec, dans le cas de tests plus complexes par exemple. 
+
+Il est possible d'exporter les logs de **pytest** dans un fichier externe, via la commande :
+- _pytest --resultlog=</path/>_
