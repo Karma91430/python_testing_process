@@ -58,10 +58,10 @@ Pour ce test, on va récupérer la liste des fichiers json générés par la bri
 Pour ce test, on va récupérer la liste des fichiers json générés par la brique logicielle dans une liste. On pourra ensuite parcourir cette liste tout en ouvrant le fichier JSON. Le test va ensuite vérifier que pour chaque clé présente dans le fichier JSON est associé le bon type de variable. Cette vérification se fait au travers d'un model de message JSON sous la forme d'un dictionnaire Python.
 
 ### _test_ContactExist_
-Pour ce test, on va récupérer la liste des fichiers json générés par la brique logicielle dans une liste. On pourra ensuite parcourir cette liste tout en ouvrant le fichier JSON. Le test va ensuite vérifier que pour chaque clé présente dans le fichier JSON est associé le bon type de variable. Cette vérification se fait au travers d'un model de message JSON sous la forme d'un dictionnaire Python.
+Pour ce test, on va récupérer la liste des contacts définis dans la table _contact_ de la BDD. Grâce à cette liste (fetchall()), on va vérifier que le nom du contact présent dans le fichier json existe bien dans la BDD. Ce test permet de valider rapidement s'il y a eu une erreur avec la brique logicielle.
 
 ### _test_RightMessageWithRightId_
-Pour ce test, on va récupérer la liste des fichiers json générés par la brique logicielle dans une liste. On pourra ensuite parcourir cette liste tout en ouvrant le fichier JSON. Le test va ensuite vérifier que pour chaque clé présente dans le fichier JSON est associé le bon type de variable. Cette vérification se fait au travers d'un model de message JSON sous la forme d'un dictionnaire Python.
+Pour ce test, on récupère grâce à la BDD et au timestamp unique le message source présent dans la BDD. On compare ensuite chaque valeur du fichier JSON avec les valeurs associées dans la base de donnée. Cela permet de réaliser un test complet de tous les fichiers générés par la brique logiciel. Ce test est dynamique, cela signifie qu'il sera mis à jour en fonction de l'évolution de la BDD. 
 
 ## Utilisation
 Chaque test est écrit dans un fichier unique. Cela permet de rejouer chaque test de manière unitaire sans lancer le protocole de test complet. 

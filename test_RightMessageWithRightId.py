@@ -16,6 +16,7 @@ def test_RightMessageWithRightId():
         f = open("Outputs/"+file)
         jsonFile = json.load(f)
 
+        #Get the specific message based on the unique timestamp
         cur = conn.cursor()
         query = "SELECT * FROM messages WHERE timestamp="+str(jsonFile["timestamp"])
         cur.execute(query)
@@ -25,13 +26,16 @@ def test_RightMessageWithRightId():
         for row in rows:
 
             assert len(row) == 5
-            
-            inputTuple = (("id", row[0]), ("timestamp", row[1]), ("direction", row[2]), ("content", row[3]), ("contact", row[4]))
-            message = dict((x, y) for x, y in inputTuple)
+
+            #Get header directly from the database
+            header = names = list(map(lambda x: x[0], cur.description))
+            #convert it to a dict, easier to get the right paramters afterwards
+            message = dict(zip(header, row))
             for key in jsonFile:
 
+                #Verify that the contact exist in the DB and that it is the right contatc_id
                 if key == "contact":
-                    query = "SELECT * FROM contact WHERE id="+str(message["contact"])
+                    query = "SELECT * FROM contact WHERE id="+str(message["contact_id"])
                     cur.execute(query)
                     contact = cur.fetchall()
                     print(contact)

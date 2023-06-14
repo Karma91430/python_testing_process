@@ -16,11 +16,13 @@ def test_contactExist():
         f = open("Outputs/"+file)
         jsonFile = json.load(f)
 
+        #Get all the contacts in the database
         cur = conn.cursor()
         query = "SELECT * FROM contact WHERE name='"+str(jsonFile["contact"])+"'"
         cur.execute(query)
 
         rows = cur.fetchall()
+        #Verify that the DB return at list one contact
         assert len(rows) != None
 
 test_contactExist()        
