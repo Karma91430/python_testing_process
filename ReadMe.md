@@ -35,7 +35,7 @@ On peut alors imaginer plusieurs tests pour identifier toutes les sorties ci-des
 - Vérifier que les fichiers JSON générés possèdent bien 5 clés &rarr; **test_RightNumberOfKeys.py**
 - Vérifier que les fichiers JSON générés possèdent les bons noms de clés &rarr; **test_RightKeyNames.py**
 - Vérifier que les données dans les fichiers JSON générés correspondent bien aux différents types attendus &rarr; **test_RightKeyTypes**
-- Vérifier à partir d'un timestamp donné que le fichier JSON généré correspond bien à ce qui se trouve dans la BDD.
+- Vérifier à partir d'un timestamp donné que le fichier JSON généré correspond bien à ce qui se trouve dans la BDD. &rarr; **test_RightMessageWithRightId**
 - Vérifier que l'ID du contact existe bien dans la BDD d'origine. 
 - Vérifier la cohérence des messages en fonction de l'état direction
 
@@ -43,17 +43,25 @@ On part du principe que les tests de validation de données précises peuvent s'
 
 ## Implémentation
 
-### test_NoFileGenerated.py
+### _test_NoFileGenerated.py_
 La méthode est très simple, on utilise la commande _os.listdir_ pour scanner la répertoire choisi et ensuite récuper les noms des fichiers présent dans celui-ci. La commande __assert_ nous permet ensuite de vérifier que la liste générée n'est pas nulle. Cela valide notre vérification de fichiers json.
 
-### test_RightNumberOfKeys.py
+### _test_RightNumberOfKeys.py_
+Pour ce test, on va récupérer la liste des fichiers json générés par la brique logicielle dans une liste. On pourra ensuite parcourir cette liste tout en ouvrant le fichier JSON. Le test va ensuite déterminer combien de clés sont présent dans ledit fichier. Si la valeur est différente de 5 le test est faux. 
 
+Ce test est le parfait exemple d'une version statique. En effet, la valeur 5 est écrit directement dans le test, là où une implémentation via une requête BDD pour déterminer le nombre de paramètre requis, serait beaucoup plus pertinente pour un protocole de test auto-suffiant. 
 
-### test_RightKeyNames.py
+### _test_RightKeyNames.py_
+Pour ce test, on va récupérer la liste des fichiers json générés par la brique logicielle dans une liste. On pourra ensuite parcourir cette liste tout en ouvrant le fichier JSON. Le test va ensuite vérifier que chaque clé présente dans ledit fichier JSON appartient bien à la liste des clées définies au préalable.
 
+### _test_RightKeyTypes_
+Pour ce test, on va récupérer la liste des fichiers json générés par la brique logicielle dans une liste. On pourra ensuite parcourir cette liste tout en ouvrant le fichier JSON. Le test va ensuite vérifier que pour chaque clé présente dans le fichier JSON est associé le bon type de variable. Cette vérification se fait au travers d'un model de message JSON sous la forme d'un dictionnaire Python.
 
-### test_RightKeyTypes
+### _test_ContactExist_
+Pour ce test, on va récupérer la liste des fichiers json générés par la brique logicielle dans une liste. On pourra ensuite parcourir cette liste tout en ouvrant le fichier JSON. Le test va ensuite vérifier que pour chaque clé présente dans le fichier JSON est associé le bon type de variable. Cette vérification se fait au travers d'un model de message JSON sous la forme d'un dictionnaire Python.
 
+### _test_RightMessageWithRightId_
+Pour ce test, on va récupérer la liste des fichiers json générés par la brique logicielle dans une liste. On pourra ensuite parcourir cette liste tout en ouvrant le fichier JSON. Le test va ensuite vérifier que pour chaque clé présente dans le fichier JSON est associé le bon type de variable. Cette vérification se fait au travers d'un model de message JSON sous la forme d'un dictionnaire Python.
 
 ## Utilisation
 Chaque test est écrit dans un fichier unique. Cela permet de rejouer chaque test de manière unitaire sans lancer le protocole de test complet. 
